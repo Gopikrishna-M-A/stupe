@@ -8,15 +8,15 @@ const faqs = [
   },
   {
     question: "How do I register my institution?",
-    answer: "To register your institution, click on the 'Sign Up' button on the homepage. Fill out the required information about your institution and create an account. Our team will verify your details and activate your account within 1-2 business days."
+    answer: "To register your institution, click on the &apos;Sign Up&apos; button on the homepage. Fill out the required information about your institution and create an account. Our team will verify your details and activate your account within 1-2 business days."
   },
   {
     question: "What are the fees for using Stupe?",
-    answer: "Stupe charges a service fee of 3-5% per transaction. The exact percentage depends on your institution's volume of transactions. For large organizations, we offer custom pricing. Please contact our sales team for more information."
+    answer: "Stupe charges a service fee of 3-5% per transaction. The exact percentage depends on your institution&apos;s volume of transactions. For large organizations, we offer custom pricing. Please contact our sales team for more information."
   },
   {
-    question: "How long does it take for funds to be transferred to my institution's account?",
-    answer: "Funds are typically transferred to your institution's linked bank account within 2-3 business days after the transaction is completed."
+    question: "How long does it take for funds to be transferred to my institution&apos;s account?",
+    answer: "Funds are typically transferred to your institution&apos;s linked bank account within 2-3 business days after the transaction is completed."
   },
   {
     question: "Can students pay fees in installments?",
@@ -48,7 +48,7 @@ export default function FAQPage() {
 
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
         <p className="text-center">
-          Can't find the answer you're looking for? Visit our <a href="/help" className="text-blue-600 hover:underline">Help Center</a> or <a href="/contact" className="text-blue-600 hover:underline">contact our support team</a>.
+          Can&apos;t find the answer you&apos;re looking for? Visit our <a href="/help" className="text-blue-600 hover:underline">Help Center</a> or <a href="/contact" className="text-blue-600 hover:underline">contact our support team</a>.
         </p>
       </div>
     </div>

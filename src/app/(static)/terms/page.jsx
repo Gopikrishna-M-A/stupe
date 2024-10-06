@@ -5,7 +5,7 @@ const TermsAndConditions = () => {
     <div className="max-w-4xl mx-auto p-8">
       <h1 className="text-3xl font-bold text-center mb-6">Terms and Conditions</h1>
       <p className="text-lg mb-4">
-        These terms and conditions govern the use of the Stupe platform ("we", "us", "our").
+        These terms and conditions govern the use of the Stupe platform (&quotwe&quot, &quotus&quot, &quotour&quot).
       </p>
       <p className="text-lg mb-6">
         By downloading, accessing, or using Stupe, you agree to be bound by these terms and conditions. If you do not agree with these terms, do not download, access, or use Stupe.
