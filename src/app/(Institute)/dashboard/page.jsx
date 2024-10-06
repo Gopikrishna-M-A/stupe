@@ -1,7 +1,7 @@
+'use client'
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
   { name: 'Jan', amount: 4000 },
@@ -12,10 +12,17 @@ const data = [
   { name: 'Jun', amount: 2390 },
 ];
 
-export default function Dashboard() {
+const transactions = [
+  { id: 1, studentName: 'John Doe', amount: 500, status: 'Completed', date: '2024-10-01', course: 'Introduction to React', group: 'Group 1' },
+  { id: 2, studentName: 'Jane Smith', amount: 750, status: 'Pending', date: '2024-10-02', course: 'Advanced JavaScript', group: 'Group 1' },
+  { id: 3, studentName: 'Bob Johnson', amount: 600, status: 'Completed', date: '2024-10-03', course: 'UI/UX Design Basics', group: 'Group 1' },
+  { id: 4, studentName: 'Alice Brown', amount: 450, status: 'Completed', date: '2024-10-04', course: 'Python for Beginners', group: 'Group 1' },
+  { id: 5, studentName: 'Charlie Davis', amount: 800, status: 'Pending', date: '2024-10-05', course: 'Data Science Fundamentals', group: 'Group 1' },
+];
+
+const Dashboard = () => {
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Institute Dashboard</h1>
+    <div className="p-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader>
@@ -42,59 +49,45 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Fee Collection Overview</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="amount" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+      
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Recent Transactions</h2>
         <Button>View All</Button>
       </div>
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul className="divide-y divide-gray-200">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <li key={item}>
-              <div className="px-4 py-4 sm:px-6">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-indigo-600 truncate">Payment #{item}</p>
-                  <div className="ml-2 flex-shrink-0 flex">
-                    <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Completed
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-2 sm:flex sm:justify-between">
-                  <div className="sm:flex">
-                    <p className="flex items-center text-sm text-gray-500">
-                      John Doe
-                    </p>
-                  </div>
-                  <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                    <p>
-                      $500.00
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.studentName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${transaction.amount.toFixed(2)}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    transaction.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {transaction.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.date}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.group}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.course}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;
