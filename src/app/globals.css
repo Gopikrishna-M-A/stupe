@@ -75,4 +75,10 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  
 }
+.card-aboutus {
+  @apply  shadow-sm border-[1px] border-gray-200 rounded-2xl p-6 flex flex-col justify-between h-full ;
+}
+  
