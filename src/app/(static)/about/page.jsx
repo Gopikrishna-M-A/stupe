@@ -1,64 +1,52 @@
-import React from "react";
+import React from 'react';
 
-export default function AboutPage() {
-  const aboutContent = [
-    {
-      title: "Our Purpose",
-      content:
-        "At Stupe, we’re all about making fee collection simple and hassle-free for everyone. By streamlining transactions, we help our clients focus on what matters most—boosting productivity and making day-to-day operations a breeze.",
-    },
-    {
-      title: "Our Story",
-      content:
-        "Founded in 2024, Stupe is a passionate team with backgrounds in education, finance, and technology. We know the struggles educational institutions face with financial management, so we’ve built a solution that makes life easier for everyone involved.",
-    },
-    {
-      title: "Our Promise to You",
-      content:
-        "We’re dedicated to giving you a secure, efficient, and easy-to-use platform that takes the headache out of fee collection. We’re always listening to your feedback and keeping up with the latest tech to make sure we’re delivering the best experience possible.",
-    },
-    {
-      title: "Here’s What We Bring to the Table",
-      content: [
-        "Stress-Free Online Fee Collection",
-        "Real-Time Payment Tracking",
-        "Flexible Fee Structures",
-        "In-Depth Financial Reporting",
-        "Easy Integration with School Systems",
-      ],
-    },
-  ];
-
+const AboutStupe = () => {
   return (
-    <div className="max-w-6xl mx-auto p-6 font-main space-y-8 py-12">
-      <h1 className="text-4xl font-bold mb-6 text-center">
-        Who We Are at Stupe
-      </h1>
+    <div className="max-w-4xl mx-auto p-6">
+      <h1 className="text-4xl font-bold mb-6 text-center">About Stupe</h1>
+      
+      <p className="mb-6">
+        Welcome to Stupe, your ultimate fee management solution designed to simplify and streamline the fee 
+        collection process for various sectors. Whether you are a tuition center, playschool, gym, yoga studio, music 
+        school, dance academy, or a hostel, Stupe is here to make your fee collection hassle-free and efficient.
+      </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {aboutContent.slice(0, 3).map((section, index) => (
-          <section key={index} className="card-aboutus bg-white shadow-md rounded-lg p-6 flex flex-col text-start">
-            <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
-            <div className="mb-4">{section.content}</div>
-          </section>
-        ))}
-      </div>
+      <h2 className="text-2xl font-semibold mb-4">What is Stupe?</h2>
+      <p className="mb-6">
+        Our app enables you to 
+        effortlessly manage, track, and collect fees. Stupe is tailored to cater to the unique needs of different 
+        institutions and service providers, ensuring that you can focus more on your core activities and less on 
+        administrative tasks. With Stupe, you can automate reminders, track payments, generate receipts, and 
+        maintain detailed reports, all in one user-friendly interface.
+      </p>
 
-      <div className="space-y-6">
-        <h2 className="text-3xl font-semibold mb-4 text-center">
-          {aboutContent[3].title}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {aboutContent[3].content.map((item, index) => (
-            <div
-              key={index}
-              className="card-aboutus"
-            >
-              <p className="text-lg font-bold text-gray-700">{item}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <h2 className="text-2xl font-semibold mb-4">Who is Stupe for?</h2>
+      <ul className="list-none space-y-4 mb-6 ml-5">
+        <li>
+          <strong>Educational Institutions:</strong> Tuition centers, playschools, and after-school programs can benefit from our 
+          easy-to-use platform to manage student fees, send reminders, and keep track of payments.
+        </li>
+        <li>
+          <strong>Fitness Centers:</strong> Gyms, yoga studios, and other fitness establishments can streamline their membership fee 
+          collection, track attendance, and offer flexible payment plans.
+        </li>
+        <li>
+          <strong>Creative Arts Schools:</strong> Music schools, dance academies, and art classes can automate fee reminders, collect 
+          payments, and manage student enrollments effortlessly.
+        </li>
+        <li>
+          <strong>Accommodation Services:</strong> Hostels, PG accommodations, and other lodging services can efficiently manage rental 
+          payments, track due dates, and ensure timely collections.
+        </li>
+      </ul>
+
+      <p className="mb-6">
+        At Stupe, we are committed to providing a seamless fee management experience that saves you time and 
+        reduces stress. Join us and transform the way you handle fee collection.
+      </p>
+
     </div>
   );
-}
+};
+
+export default AboutStupe;

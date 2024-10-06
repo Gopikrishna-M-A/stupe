@@ -1,62 +1,63 @@
 import React from 'react';
 
-export default function PrivacyPolicy() {
+const PrivacyPolicy = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
-      
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">1. Information We Collect</h2>
-        <p className="mb-4">
-          We collect information you provide directly to us, such as when you create an account, make a payment, or contact us for support. This may include your name, email address, phone number, and payment information.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">2. How We Use Your Information</h2>
-        <p className="mb-4">
-          We use the information we collect to provide, maintain, and improve our services, to process transactions, and to communicate with you about your account and our services.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">3. Information Sharing and Disclosure</h2>
-        <p className="mb-4">
-          We do not sell your personal information. We may share your information with third-party service providers who perform services on our behalf, such as payment processing and data analysis.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">4. Data Security</h2>
-        <p className="mb-4">
-          We take reasonable measures to help protect your personal information from loss, theft, misuse, unauthorized access, disclosure, alteration, and destruction.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">5. Your Rights</h2>
-        <p className="mb-4">
-          You have the right to access, correct, or delete your personal information. You can do this by logging into your account or contacting us directly.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">6. Changes to This Policy</h2>
-        <p className="mb-4">
-          We may update this privacy policy from time to time. We will notify you of any changes by posting the new privacy policy on this page.
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">7. Contact Us</h2>
-        <p className="mb-4">
-          If you have any questions about this privacy policy, please contact us at [contact email].
-        </p>
-      </section>
-
-      <p className="text-sm text-gray-600 mt-8">
-        Last updated: [Date]
+    <div className="max-w-4xl mx-auto p-8">
+      <h1 className="text-3xl font-bold text-center mb-6">Privacy Policy</h1>
+      <p className="text-lg mb-4">
+        We, at Stupe, are committed to protecting your personal information and respecting your privacy. This privacy policy explains how we collect, use, and disclose your personal information in connection with Stupe.
       </p>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Collection of Personal Information</h2>
+        <p className="text-base">
+          We collect personal information that you provide to us, such as your name, phone number, access to phone contacts, and payment information (UPI ID, bank account number, IFSC code).
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Use of Personal Information</h2>
+        <p className="text-base">
+          We use the personal information provided, such as your name, phone number, and payment information (UPI ID, bank account number, IFSC code) to process your payments, provide customer support, and improve our services. We may also use your phone number to send promotional messages or other communications related to our services.
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Disclosure of Personal Information</h2>
+        <p className="text-base">
+          We do not sell or rent your personal information to third parties. However, we may disclose your personal information to third parties such as payment processors, service providers, and law enforcement agencies as necessary to provide our services and comply with legal obligations.
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Security of Personal Information</h2>
+        <p className="text-base">
+          We take reasonable steps to protect your personal information from unauthorized access, disclosure, and alteration. We use industry-standard security measures to safeguard your personal information, including SSL encryption, firewalls, and secure servers.
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Retention of Personal Information</h2>
+        <p className="text-base">
+          We retain your personal information for as long as necessary to provide our services and comply with legal obligations. We will securely destroy or anonymize your personal information when it is no longer required.
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Changes to Privacy Policy</h2>
+        <p className="text-base">
+          We may update this privacy policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting a notice on our website or sending you an email.
+        </p>
+      </section>
+
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Contact Information</h2>
+        <p className="text-base">
+          If you have any questions or concerns about our privacy policy or the collection, use, or disclosure of your personal information, please contact us via email at privacy@stupe.co.
+        </p>
+      </section>
     </div>
   );
-}
+};
+
+export default PrivacyPolicy;

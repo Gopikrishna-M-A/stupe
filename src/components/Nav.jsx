@@ -9,7 +9,7 @@ const Nav = () => {
         <div className='flex justify-between h-16'>
           <div className='flex'>
             <div className='flex-shrink-0 flex items-center'>
-              <span className='text-2xl font-bold text-[#005180]'>stupe</span>
+              <Link href='/' className='text-2xl font-bold text-[#005180]'>stupe</Link>
             </div>
           </div>
           <div className='flex items-center'>

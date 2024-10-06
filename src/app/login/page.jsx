@@ -49,7 +49,7 @@ const PhoneLoginPage = () => {
   const verifyOtp = async () => {
     try {
       await confirmationResult?.confirm(otp)
-      router.push('/')
+      router.push('/dashboard')
     } catch (error) {
       console.error("Error verifying OTP:", error)
     }
