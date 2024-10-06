@@ -56,7 +56,7 @@ const TermsAndConditions = () => {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">7. Disclaimer of Warranties</h2>
         <p className="text-base">
-          Stupe is provided on an "as is" and "as available" basis, without any warranties, either express or implied. We do not warrant that Stupe will be uninterrupted or error-free.
+          Stupe is provided on an &quot;as is&quot; and &quot;as available&quot; basis, without any warranties, either express or implied. We do not warrant that Stupe will be uninterrupted or error-free.
         </p>
       </section>
 
