@@ -8,14 +8,14 @@ export default function AboutPage() {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
         <p className="mb-4">
-          At Stupe, our mission is to simplify the fee collection process for educational institutions and students alike. We believe that by streamlining financial transactions, we can help schools focus on what truly matters: providing quality education.
+        At Stupe, our mission is to streamline the fee collection process for individuals and businesses. By optimizing financial transactions, we aim to enable our clients to focus on their core activities, enhancing productivity and efficiency in their operations.
         </p>
       </section>
 
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Who We Are</h2>
         <p className="mb-4">
-          Founded in [Year], Stupe is a team of dedicated professionals with backgrounds in education, finance, and technology. We understand the challenges faced by educational institutions in managing their finances and have created a solution that addresses these needs.
+          Founded in 2024, Stupe is a team of dedicated professionals with backgrounds in education, finance, and technology. We understand the challenges faced by educational institutions in managing their finances and have created a solution that addresses these needs.
         </p>
       </section>
 
