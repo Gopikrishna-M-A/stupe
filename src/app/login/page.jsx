@@ -9,7 +9,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { PhoneIcon, KeyIcon } from 'lucide-react'
 
 const PhoneLoginPage = () => {
-  const [phoneNumber, setPhoneNumber] = useState('+91 6282571296')
+  const [phoneNumber, setPhoneNumber] = useState('+91 ')
   const [recaptchaVerifier, setRecaptchaVerifier] = useState()
   const [confirmationResult, setConfirmationResult] = useState()
   const [otp, setOtp] = useState('')
