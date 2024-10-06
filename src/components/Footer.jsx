@@ -55,16 +55,16 @@ const Footer = () => {
             <ul className='mt-4 space-y-4'>
               <li>
                 <Link
-                  href='/faq'
+                  href='/refunds'
                   className='text-base text-gray-300 hover:text-white'>
-                  FAQ
+                  Refunds
                 </Link>
               </li>
               <li>
                 <Link
                   href='/shipping'
                   className='text-base text-gray-300 hover:text-white'>
-                 shipping
+                 Shipping
                 </Link>
               </li>
             </ul>
