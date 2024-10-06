@@ -62,9 +62,9 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href='/help'
+                  href='/shipping'
                   className='text-base text-gray-300 hover:text-white'>
-                  Help Center
+                 shipping
                 </Link>
               </li>
             </ul>
