@@ -4,7 +4,6 @@ import { createDocumentForCollection } from '../../lib/collectionHelpers';
 
 export default async function handler(req, res) {
   const { collection } = req.query;
-
   if (req.method === 'POST') {
     return await writeToCollection(req, res, collection);
   } else if (req.method === 'GET') {
