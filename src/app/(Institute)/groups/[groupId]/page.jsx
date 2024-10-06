@@ -50,7 +50,7 @@ export default function GroupPage() {
             <CardTitle>Total Fees</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">${groupData.totalFees.toLocaleString()}</p>
+            <p className="text-2xl font-bold">₹{groupData.totalFees.toLocaleString()}</p>
           </CardContent>
         </Card>
         <Card>
@@ -58,7 +58,7 @@ export default function GroupPage() {
             <CardTitle>Collected Fees</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">${groupData.collectedFees.toLocaleString()}</p>
+            <p className="text-2xl font-bold">₹{groupData.collectedFees.toLocaleString()}</p>
           </CardContent>
         </Card>
       </div>

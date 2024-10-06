@@ -57,7 +57,7 @@ export default function GroupsPage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {groups.map((group) => (
-          <Link href={`/groups/${group.id}`} key={group.id}>
+          <Link href={`/groups/₹{group.id}`} key={group.id}>
             <Card className="hover:shadow-lg transition-shadow duration-200">
               <CardHeader>
                 <CardTitle>{group.name}</CardTitle>

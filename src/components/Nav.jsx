@@ -13,9 +13,9 @@ const Nav = () => {
             </div>
           </div>
           <div className='flex items-center'>
-            <Link href='/login'>
+            <Link href='/sign-in'>
               <Button variant='outline' className='mr-2'>
-                Log in
+                sign in
               </Button>
             </Link>
           </div>

@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { SignedIn, UserButton } from "@clerk/nextjs"
 
 export default function Sidebar({children}) {
   const pathname = usePathname()
@@ -66,7 +67,7 @@ export default function Sidebar({children}) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ₹{
                     pathname === item.href ? "bg-muted text-primary" : "text-muted-foreground"
                   }`}
                 >
@@ -125,7 +126,7 @@ export default function Sidebar({children}) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
+                    className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ₹{
                       pathname === item.href ? "bg-muted text-foreground" : "text-muted-foreground"
                     }`}
                   >
@@ -169,22 +170,9 @@ export default function Sidebar({children}) {
               </div>
             </form>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="secondary" size="icon" className="rounded-full">
-                <CircleUser className="h-5 w-5" />
-                <span className="sr-only">Toggle user menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </header>
        <div className='w-full h-full flex justify-center items-start'>
         {children}

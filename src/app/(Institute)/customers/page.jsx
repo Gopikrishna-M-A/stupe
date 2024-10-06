@@ -42,7 +42,7 @@ const CustomersPage = () => {
                   <tr key={customer.id} className="border-b">
                     <td className="p-2">{customer.name}</td>
                     <td className="p-2">{customer.email}</td>
-                    <td className="p-2">${customer.totalPaid.toFixed(2)}</td>
+                    <td className="p-2">₹{customer.totalPaid.toFixed(2)}</td>
                     <td className="p-2">{customer.courses.join(', ')}</td>
                     <td className="p-2">{customer.group}</td>
                   </tr>

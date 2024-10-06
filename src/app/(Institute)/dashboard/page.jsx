@@ -29,7 +29,7 @@ const Dashboard = () => {
             <CardTitle>Total Collected</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">$15,890</p>
+            <p className="text-2xl font-bold">₹15,890</p>
           </CardContent>
         </Card>
         <Card>
@@ -70,9 +70,9 @@ const Dashboard = () => {
             {transactions.map((transaction) => (
               <tr key={transaction.id}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.studentName}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${transaction.amount.toFixed(2)}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction.amount.toFixed(2)}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ₹{
                     transaction.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                   }`}>
                     {transaction.status}

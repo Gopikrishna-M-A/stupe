@@ -2,12 +2,12 @@ import React from "react"
 import { Button } from "@/components/ui/button"
 import Nav from "@/components/Nav"
 import Footer from "@/components/Footer"
+import Link from "next/link"
 
 export default function LandingPage() {
   return (
     <div className='min-h-screen flex flex-col justify-between bg-gray-100'>
       <Nav />
-
       <main>
         <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
           <div className='px-4 py-6 sm:px-0'>
@@ -19,10 +19,10 @@ export default function LandingPage() {
               platform.
             </p>
             <div className='space-x-4'>
-              <Button size='lg'>Get Started</Button>
-              <Button variant='outline' size='lg'>
+              <Link href='/sign-up'><Button size='lg'>Get Started</Button></Link>
+              <Link href='/about'> <Button variant='outline' size='lg'>
                 Learn More
-              </Button>
+              </Button></Link>
             </div>
           </div>
         </div>
