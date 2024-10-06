@@ -29,7 +29,7 @@ const ShippingDelivery = () => {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Contact Us</h2>
         <p className="text-base">
-          If you have any questions regarding the delivery of your service or access issues, please reach out to our support team at <a href="mailto:support@stupe.com" className="text-blue-500">support@stupe.com</a>.
+          If you have any questions regarding the delivery of your service or access issues, please reach out to our support team at <a href="mailto:support@stupe.com" className="text-blue-500">support@stupe.co</a>.
         </p>
       </section>
     </div>
