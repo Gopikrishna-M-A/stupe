@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 
 export default function SettingsPage() {
   return (
-    <div className="p-6">
+    <div className="p-6 w-full">
       <h1 className="text-3xl font-bold mb-6">Settings</h1>
       
       <div className="space-y-6">
@@ -29,26 +29,6 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <Label htmlFor="address">Address</Label>
               <Input id="address" placeholder="Enter address" />
-            </div>
-          </div>
-        </div>
-
-        <Separator />
-
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Payment Settings</h2>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="razorpay">Razorpay Integration</Label>
-              <Switch id="razorpay" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="apiKey">API Key</Label>
-              <Input id="apiKey" type="password" placeholder="Enter Razorpay API Key" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="secretKey">Secret Key</Label>
-              <Input id="secretKey" type="password" placeholder="Enter Razorpay Secret Key" />
             </div>
           </div>
         </div>
