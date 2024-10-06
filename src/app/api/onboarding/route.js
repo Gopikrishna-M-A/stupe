@@ -1,17 +1,14 @@
-import clientPromise from '@/lib/mongodb'
+import clientPromise from '@/lib/mongodb';
+import { NextResponse } from 'next/server';
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Only POST requests are allowed' });
-  }
-
-  const { fullName, emailId, phoneNumber, instituteName } = req.body;
-
-  if (!fullName || !emailId || !phoneNumber || !instituteName) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
+export async function POST(req) {
   try {
+    const { fullName, emailId, phoneNumber, instituteName } = await req.json();
+
+    if (!fullName || !emailId || !phoneNumber || !instituteName) {
+      return NextResponse.json({ message: 'All fields are required' }, { status: 400 });
+    }
+
     const client = await clientPromise;
     const db = client.db('main');
     const collection = db.collection('institutes');
@@ -24,9 +21,10 @@ export default async function handler(req, res) {
       createdAt: new Date(),
     });
 
-    res.status(201).json({ message: 'Onboarding successful', data: result });
+    return NextResponse.json({ message: 'Onboarding successful', data: result }, { status: 201 });
   } catch (error) {
     console.error('Error inserting data: ', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
+

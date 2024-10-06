@@ -1,57 +1,54 @@
-import clientPromise from '../../lib/mongodb';
+import clientPromise from '../../../lib/mongodb';
 import { ObjectId } from 'mongodb';
-import { createDocumentForCollection } from '../../lib/collectionHelpers';
+import { createDocumentForCollection } from '../../../lib/collectionHelpers';
+import { NextResponse } from 'next/server';
 
-export default async function handler(req, res) {
-  const { collection } = req.query;
-  if (req.method === 'POST') {
-    return await writeToCollection(req, res, collection);
-  } else if (req.method === 'GET') {
-    return await readFromCollection(req, res, collection);
-  } else {
-    return res.status(405).json({ message: 'Only GET and POST requests are allowed' });
-  }
-}
+export async function POST(req, { params }) {
+  const { collection } = params;
 
-async function writeToCollection(req, res, collectionName) {
   try {
+    const data = await req.json();
     const client = await clientPromise;
     const db = client.db('main');
-    const collection = db.collection(collectionName);
+    const dbCollection = db.collection(collection);
 
-    let document = createDocumentForCollection(collectionName, req.body);
-    const result = await collection.insertOne(document);
+    const document = createDocumentForCollection(collection, data);
+    const result = await dbCollection.insertOne(document);
 
-    res.status(201).json({ message: 'Data inserted successfully', data: result });
+    return NextResponse.json({ message: 'Data inserted successfully', data: result }, { status: 201 });
   } catch (error) {
     console.error('Error inserting data: ', error.message);
-    res.status(400).json({ message: error.message });
+    return NextResponse.json({ message: error.message }, { status: 400 });
   }
 }
 
-async function readFromCollection(req, res, collectionName) {
-  const { id, page = 1, limit = 10 } = req.query;
+export async function GET(req, { params }) {
+  const { collection } = params;
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+  const page = parseInt(searchParams.get('page')) || 1;
+  const limit = parseInt(searchParams.get('limit')) || 10;
 
-  if (!collectionName) {
-    return res.status(400).json({ message: 'Collection name is required' });
+  if (!collection) {
+    return NextResponse.json({ message: 'Collection name is required' }, { status: 400 });
   }
 
   try {
     const client = await clientPromise;
     const db = client.db('main');
-    const collection = db.collection(collectionName);
+    const dbCollection = db.collection(collection);
 
     let query = {};
     if (id) {
       query = { _id: new ObjectId(id) };
     }
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const data = await collection.find(query).skip(skip).limit(parseInt(limit)).toArray();
+    const skip = (page - 1) * limit;
+    const data = await dbCollection.find(query).skip(skip).limit(limit).toArray();
 
-    res.status(200).json({ data });
+    return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
     console.error('Error reading data: ', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
   }
 }
