@@ -72,7 +72,6 @@ const CustomersPage = () => {
                   <th className="text-left p-2">Name</th>
                   <th className="text-left p-2">Email</th>
                   <th className="text-left p-2">Phone Number</th>
-                  <th className="text-left p-2">Fee Status</th>
                   <th className="text-left p-2">Group</th>
                 </tr>
               </thead>
@@ -82,7 +81,6 @@ const CustomersPage = () => {
                     <td className="p-2">{member.name}</td>
                     <td className="p-2">{member.email}</td>
                     <td className="p-2">{member.phoneNumber}</td>
-                    <td className="p-2">{member.feeStatus}</td>
                     <td className="p-2">
                       {member.groupId ? (
                           <div>{member.groupId.groupName}</div>

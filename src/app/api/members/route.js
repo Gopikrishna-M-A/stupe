@@ -11,9 +11,9 @@ export async function GET(request) {
   try {
     let memberships;
     if (groupId) {
-      memberships = await Memberships.find({ groupId }).populate('memberId');
+      memberships = await Memberships.find({ groupId }).populate('memberId').populate('groupId')
     } else {
-      memberships = await Memberships.find().populate('memberId');
+      memberships = await Memberships.find().populate('memberId').populate('groupId')
     }
 
     const members = memberships.map(membership => ({
