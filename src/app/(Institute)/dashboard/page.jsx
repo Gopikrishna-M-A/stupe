@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useUserContext } from '@/contexts/UserContext';
 
 const Dashboard = () => {
@@ -48,7 +48,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full h-full overflow-y-scroll">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
@@ -83,15 +83,14 @@ const Dashboard = () => {
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={chartData}>
+            <AreaChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+              <YAxis />
               <Tooltip />
-              <Bar yAxisId="left" dataKey="students" fill="#8884d8" name="Students" />
-              <Bar yAxisId="right" dataKey="fees" fill="#82ca9d" name="Collected Fees" />
-            </BarChart>
+              <Area type="monotone" dataKey="students" stackId="1" stroke="#8884d8" fill="#8884d8" name="Students" />
+              <Area type="monotone" dataKey="fees" stackId="1" stroke="#82ca9d" fill="#82ca9d" name="Collected Fees" />
+            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
