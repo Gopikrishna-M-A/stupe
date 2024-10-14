@@ -44,9 +44,9 @@ const TransactionsPage = () => {
     setStatusFilter(value)
   }
 
-  const filteredTransactions = transactions.filter((transaction) => {
-    const matchesSearch = transaction.memberId.name.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesStatus = statusFilter === 'all' || transaction.status.toLowerCase() === statusFilter.toLowerCase()
+  const filteredTransactions = transactions?.filter((transaction) => {
+    const matchesSearch = transaction?.memberId?.name?.toLowerCase()?.includes(searchTerm.toLowerCase())
+    const matchesStatus = statusFilter === 'all' || transaction?.status?.toLowerCase() === statusFilter?.toLowerCase()
     return matchesSearch && matchesStatus
   })
 
@@ -96,25 +96,25 @@ const TransactionsPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredTransactions.map((transaction) => (
-                  <tr key={transaction._id} className='border-b'>
-                    <td className='p-2'>{transaction.memberId.name}</td>
-                    <td className='p-2'>₹{transaction.amount.toFixed(2)}</td>
+                {filteredTransactions?.map((transaction) => (
+                  <tr key={transaction?._id} className='border-b'>
+                    <td className='p-2'>{transaction?.memberId?.name}</td>
+                    <td className='p-2'>₹{transaction?.amount?.toFixed(2)}</td>
                     <td className='p-2'>
                       <span
                         className={`px-2 py-1 rounded-full text-xs ${
-                          transaction.status === "Completed"
+                          transaction?.status === "Completed"
                             ? "bg-green-100 text-green-800"
-                            : transaction.status === "Pending"
+                            : transaction?.status === "Pending"
                             ? "bg-yellow-100 text-yellow-800"
                             : "bg-red-100 text-red-800"
                         }`}>
-                        {transaction.status}
+                        {transaction?.status}
                       </span>
                     </td>
-                    <td className='p-2'>{new Date(transaction.transactionDate).toLocaleDateString()}</td>
-                    <td className='p-2'>{transaction.groupId.groupName}</td>
-                    <td className='p-2'>{transaction.paymentMethod}</td>
+                    <td className='p-2'>{new Date(transaction?.transactionDate)?.toLocaleDateString()}</td>
+                    <td className='p-2'>{transaction?.groupId?.groupName}</td>
+                    <td className='p-2'>{transaction?.paymentMethod}</td>
                   </tr>
                 ))}
               </tbody>
