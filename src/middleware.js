@@ -12,7 +12,8 @@ const isPublicRoute = createRouteMatcher([
   '/shipping', 
   '/refunds', 
   '/',
-  '/api(.*)'
+  '/api(.*)',
+  '/pay(.*)'
 ])
 
 export default clerkMiddleware((auth, request) => {

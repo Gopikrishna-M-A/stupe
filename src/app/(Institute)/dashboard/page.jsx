@@ -1,35 +1,62 @@
 'use client'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-const data = [
-  { name: 'Jan', amount: 4000 },
-  { name: 'Feb', amount: 3000 },
-  { name: 'Mar', amount: 2000 },
-  { name: 'Apr', amount: 2780 },
-  { name: 'May', amount: 1890 },
-  { name: 'Jun', amount: 2390 },
-];
-
-const transactions = [
-  { id: 1, studentName: 'John Doe', amount: 500, status: 'Completed', date: '2024-10-01', course: 'Introduction to React', group: 'Group 1' },
-  { id: 2, studentName: 'Jane Smith', amount: 750, status: 'Pending', date: '2024-10-02', course: 'Advanced JavaScript', group: 'Group 1' },
-  { id: 3, studentName: 'Bob Johnson', amount: 600, status: 'Completed', date: '2024-10-03', course: 'UI/UX Design Basics', group: 'Group 1' },
-  { id: 4, studentName: 'Alice Brown', amount: 450, status: 'Completed', date: '2024-10-04', course: 'Python for Beginners', group: 'Group 1' },
-  { id: 5, studentName: 'Charlie Davis', amount: 800, status: 'Pending', date: '2024-10-05', course: 'Data Science Fundamentals', group: 'Group 1' },
-];
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useUserContext } from '@/contexts/UserContext';
 
 const Dashboard = () => {
+  const { instituteData } = useUserContext();
+  const [groups, setGroups] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (instituteData) {
+      fetchData();
+    }
+  }, [instituteData]);
+
+  const fetchData = async () => {
+    try {
+      const [groupsResponse, transactionsResponse] = await Promise.all([
+        axios.get(`/api/groups?instituteId=${instituteData._id}`),
+        axios.get('/api/transactions')
+      ]);
+      setGroups(groupsResponse.data);
+      setTransactions(transactionsResponse.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const totalCollected = transactions.reduce((sum, transaction) => sum + transaction.amount, 0);
+  const totalStudents = groups.reduce((sum, group) => sum + group.memberCount, 0);
+  const pendingPayments = transactions.filter(t => t.status === 'Pending').length;
+
+  const chartData = groups.map(group => ({
+    name: group.groupName,
+    students: group.memberCount,
+    fees: group.collectedFees
+  }));
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="p-6 w-full">
+      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <Card>
           <CardHeader>
             <CardTitle>Total Collected</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">$15,890</p>
+            <p className="text-2xl font-bold">₹{totalCollected.toFixed(2)}</p>
           </CardContent>
         </Card>
         <Card>
@@ -37,7 +64,7 @@ const Dashboard = () => {
             <CardTitle>Active Students</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">1,234</p>
+            <p className="text-2xl font-bold">{totalStudents}</p>
           </CardContent>
         </Card>
         <Card>
@@ -45,10 +72,29 @@ const Dashboard = () => {
             <CardTitle>Pending Payments</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">45</p>
+            <p className="text-2xl font-bold">{pendingPayments}</p>
           </CardContent>
         </Card>
       </div>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Groups Overview</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+              <Tooltip />
+              <Bar yAxisId="left" dataKey="students" fill="#8884d8" name="Students" />
+              <Bar yAxisId="right" dataKey="fees" fill="#82ca9d" name="Collected Fees" />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
+      </Card>
       
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Recent Transactions</h2>
@@ -63,14 +109,13 @@ const Dashboard = () => {
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {transactions.map((transaction) => (
-              <tr key={transaction.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.studentName}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${transaction.amount.toFixed(2)}</td>
+            {transactions.slice(0, 5).map((transaction) => (
+              <tr key={transaction._id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.memberId.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction.amount.toFixed(2)}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                     transaction.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
@@ -78,9 +123,10 @@ const Dashboard = () => {
                     {transaction.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.date}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.group}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.course}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(transaction.transactionDate).toLocaleDateString()}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.groupId.groupName}</td>
               </tr>
             ))}
           </tbody>

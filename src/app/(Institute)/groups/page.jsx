@@ -83,7 +83,7 @@ export default function GroupsListPage() {
   }
 
   return (
-    <div className='max-w-6xl w-full mx-auto p-6'>
+    <div className='w-full mx-auto p-6'>
       <div className='flex justify-between items-center mb-6'>
         <h1 className='text-3xl font-bold'>Groups</h1>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

@@ -9,10 +9,16 @@ export async function GET(request) {
 
   try {
     if (id) {
-      const transaction = await Transaction.findById(id);
+      const transaction = await Transaction.findById(id)
+      .populate('memberId', 'name')
+      .populate('groupId', 'name')
+      .sort({ transactionDate: -1 })
       return NextResponse.json(transaction);
     } else {
-      const transactions = await Transaction.find({});
+      const transactions = await Transaction.find({})
+      .populate('memberId', 'name')
+      .populate('groupId', 'groupName')
+      .sort({ transactionDate: -1 })
       return NextResponse.json(transactions);
     }
   } catch (error) {

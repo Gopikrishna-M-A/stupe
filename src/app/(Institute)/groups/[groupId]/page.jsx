@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { BookUser, CircleX, Ellipsis, Loader2, Mail } from "lucide-react";
+import { BookUser, CircleX, Ellipsis, Loader2, Mail, User } from "lucide-react";
 
 export default function GroupPage({ params }) {
   const router = useRouter();
@@ -149,16 +149,12 @@ export default function GroupPage({ params }) {
   }
 
   return (
-    <div className="max-w-6xl w-full mx-auto p-6">
+    <div className="w-full mx-auto p-6">
       <h1 className="text-3xl font-bold mb-2">{groupData.groupName}</h1>
       <p className="text-gray-600 mb-6">{groupData.description}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatCard title="Total Students" value={members.length} />
-        <StatCard
-          title="Total Fees"
-          value={`₹${groupData.totalFees.toFixed(2)}`}
-        />
         <StatCard
           title="Collected Fees"
           value={`₹${groupData.collectedFees.toFixed(2)}`}
@@ -224,8 +220,8 @@ function AddMemberDialog({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button onClick={() => onOpenChange(true)}>
-          <BookUser className="h-4 w-4 mr-2" />
+        <Button variant='outline' onClick={() => onOpenChange(true)}>
+        <User className="h-4 w-4 mr-2" />
           Add Member
         </Button>
       </DialogTrigger>
@@ -304,7 +300,7 @@ function StudentsTable({ students, onRemoveMember }) {
           <TableHead>Email</TableHead>
           <TableHead>Fee Status</TableHead>
           <TableHead>Fee Amount</TableHead>
-          <TableHead>Action</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
