@@ -1,13 +1,14 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from 'lucide-react';
+import { useUserContext } from '@/contexts/UserContext';
 
 const CustomersPage = () => {
+  const { instituteData } = useUserContext();
   const [members, setMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,7 +21,7 @@ const CustomersPage = () => {
   const fetchMembers = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('/api/members');
+      const response = await axios.get(`/api/members?instituteId=${instituteData._id}`);
       setMembers(response.data);
     } catch (error) {
       console.error('Error fetching members:', error);

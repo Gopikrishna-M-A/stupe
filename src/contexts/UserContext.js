@@ -7,13 +7,16 @@ const UserContext = createContext()
 
 export function UserProvider({ children }) {
   const { user, isLoaded } = useUser()
+  console.log('user',user);
+  
   const [phoneNumber, setPhoneNumber] = useState(null)
   const [instituteData, setInstituteData] = useState(null)
   const [isInstituteLoaded, setIsInstituteLoaded] = useState(false)
 
   useEffect(() => {
     if (isLoaded && user) {
-      const userPhoneNumber = user.primaryPhoneNumber?.phoneNumber
+      // const userPhoneNumber = user.primaryPhoneNumber?.phoneNumber
+      const userPhoneNumber = user.phoneNumbers[0]?.phoneNumber
       setPhoneNumber(userPhoneNumber)
       fetchInstituteData(userPhoneNumber)
     }

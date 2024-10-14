@@ -1,4 +1,5 @@
 import dbConnect from "@/lib/mongodb";
+import Group from "@/models/Group";
 import Member from "@/models/Member";
 import Memberships from "@/models/Memberships";
 import { NextResponse } from "next/server";
@@ -7,13 +8,22 @@ export async function GET(request) {
   await dbConnect();
   const { searchParams } = new URL(request.url);
   const groupId = searchParams.get("groupId");
+  const instituteId = searchParams.get("instituteId");
 
   try {
     let memberships;
+
     if (groupId) {
-      memberships = await Memberships.find({ groupId }).populate('memberId').populate('groupId')
+      // If groupId is provided, fetch members of that specific group
+      memberships = await Memberships.find({ groupId }).populate('memberId').populate('groupId');
+    } else if (instituteId) {
+      // If instituteId is provided, fetch members of all groups in that institute
+      const groups = await Group.find({ institute: instituteId });
+      const groupIds = groups.map(group => group._id);
+      memberships = await Memberships.find({ groupId: { $in: groupIds } }).populate('memberId').populate('groupId');
     } else {
-      memberships = await Memberships.find().populate('memberId').populate('groupId')
+      // If neither is provided, return an error
+      return NextResponse.json({ error: "Either groupId or instituteId must be provided" }, { status: 400 });
     }
 
     const members = memberships.map(membership => ({
@@ -27,6 +37,7 @@ export async function GET(request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
 
 export async function POST(request) {
   await dbConnect();
