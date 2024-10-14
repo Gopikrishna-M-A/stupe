@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Institute from "./Institute";
 
 const GroupSchema = new mongoose.Schema(
   {
@@ -8,7 +9,7 @@ const GroupSchema = new mongoose.Schema(
     collectedFees: { type: Number, default: 0 },
     institute: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Institute",
+      ref: Institute,
       required: true,
     },
   },

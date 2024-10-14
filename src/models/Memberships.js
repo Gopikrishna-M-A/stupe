@@ -1,15 +1,17 @@
 import mongoose from "mongoose";
+import Member from "./Member";
+import Group from "./Group";
 
 const MembershipsSchema = new mongoose.Schema(
   {
     memberId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Member",
+      ref: Member,
       required: true,
     },
     groupId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Group",
+      ref: Group,
       required: true,
     },
     feeAmount: { type: Number, required: true },
