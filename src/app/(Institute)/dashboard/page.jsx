@@ -113,8 +113,8 @@ const Dashboard = () => {
               <th scope="col" className="pl-2 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
               <th scope="col" className="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
               <th scope="col" className="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th scope="col" className="hidden md:table-cellmd:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-              <th scope="col" className="hidden md:table-cellmd:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+              <th scope="col" className="hidden md:table-cell md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th scope="col" className="hidden md:table-cell md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
