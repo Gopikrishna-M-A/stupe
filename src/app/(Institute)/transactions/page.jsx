@@ -11,8 +11,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Loader2 } from 'lucide-react'
+import { useUserContext } from '@/contexts/UserContext'
 
 const TransactionsPage = () => {
+  const { instituteData } = useUserContext();
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -26,9 +28,7 @@ const TransactionsPage = () => {
   const fetchTransactions = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('/api/transactions')
-      console.log("response",response);
-      
+      const response = await axios.get(`/api/transactions?instituteId=${instituteData._id}`)
       setTransactions(response.data)
       setLoading(false)
     } catch (err) {

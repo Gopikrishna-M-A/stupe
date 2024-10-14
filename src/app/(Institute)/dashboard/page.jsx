@@ -24,7 +24,7 @@ const Dashboard = () => {
     try {
       const [groupsResponse, transactionsResponse] = await Promise.all([
         axios.get(`/api/groups?instituteId=${instituteData._id}`),
-        axios.get('/api/transactions')
+        axios.get(`/api/transactions?instituteId=${instituteData._id}`)
       ]);
       setGroups(groupsResponse.data);
       setTransactions(transactionsResponse.data);

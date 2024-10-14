@@ -6,19 +6,25 @@ export async function GET(request) {
   await dbConnect();
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
+  const instituteId = searchParams.get('instituteId');
 
   try {
     if (id) {
       const transaction = await Transaction.findById(id)
-      .populate('memberId', 'name')
-      .populate('groupId', 'name')
-      .sort({ transactionDate: -1 })
+        .populate('memberId', 'name')
+        .populate('groupId', 'name')
+        .sort({ transactionDate: -1 });
       return NextResponse.json(transaction);
     } else {
-      const transactions = await Transaction.find({})
-      .populate('memberId', 'name')
-      .populate('groupId', 'groupName')
-      .sort({ transactionDate: -1 })
+      let query = {};
+      if (instituteId) {
+        query.instituteId = instituteId;
+      }
+      
+      const transactions = await Transaction.find(query)
+        .populate('memberId', 'name')
+        .populate('groupId', 'groupName')
+        .sort({ transactionDate: -1 });
       return NextResponse.json(transactions);
     }
   } catch (error) {

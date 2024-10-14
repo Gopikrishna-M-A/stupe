@@ -40,7 +40,7 @@ export default function PaymentPage({ params }) {
 
   const handlePayNow = async () => {
     try {
-      const response = await axios.post("/api/create-razorpay-order", {
+      const response = await axios.post('/api/create-razorpay-order', {
         memberId: memberData.member._id,
         groupId: memberData.membership.groupId,
         membershipId: memberData.membership._id,
