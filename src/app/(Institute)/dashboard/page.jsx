@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useUserContext } from '@/contexts/UserContext';
+import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
 
 const Dashboard = () => {
   const { instituteData } = useUserContext();
@@ -44,8 +46,13 @@ const Dashboard = () => {
   }));
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
   }
+
 
   return (
     <div className="p-6 w-full h-full overflow-y-scroll">
@@ -97,35 +104,35 @@ const Dashboard = () => {
       
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Recent Transactions</h2>
-        <Button>View All</Button>
+       <Link href='/transactions'> <Button>View All</Button></Link>
       </div>
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
+              <th scope="col" className="pl-2 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th scope="col" className="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+              <th scope="col" className="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th scope="col" className="hidden md:table-cellmd:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th scope="col" className="hidden md:table-cellmd:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Group</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {transactions?.slice(0, 5).map((transaction) => (
               <tr key={transaction?._id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction?.memberId?.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction?.amount?.toFixed(2)}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="pl-2 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction?.memberId?.name}</td>
+                <td className="md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction?.amount?.toFixed(2)}</td>
+                <td className="md:px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                     transaction?.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                   }`}>
                     {transaction?.status}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="hidden md:table-cell md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {new Date(transaction?.transactionDate).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction?.groupId?.groupName}</td>
+                <td className="hidden md:table-cell md:px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction?.groupId?.groupName}</td>
               </tr>
             ))}
           </tbody>

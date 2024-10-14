@@ -70,18 +70,18 @@ const CustomersPage = () => {
               <thead>
                 <tr className="border-b">
                   <th className="text-left p-2">Name</th>
-                  <th className="text-left p-2">Email</th>
+                  <th className="text-left p-2 hidden md:table-cell">Email</th>
                   <th className="text-left p-2">Phone Number</th>
-                  <th className="text-left p-2">Group</th>
+                  <th className="text-left p-2 hidden md:table-cell">Group</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredMembers.map((member) => (
                   <tr key={member._id} className="border-b">
                     <td className="p-2">{member.name}</td>
-                    <td className="p-2">{member.email}</td>
+                    <td className="p-2 hidden md:table-cell">{member.email}</td>
                     <td className="p-2">{member.phoneNumber}</td>
-                    <td className="p-2">
+                    <td className="p-2 hidden md:table-cell">
                       {member.groupId ? (
                           <div>{member.groupId.groupName}</div>
                       ) : 'No Group'}

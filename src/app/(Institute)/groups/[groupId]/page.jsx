@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { BookUser, CircleX, Ellipsis, Loader2, Mail, User } from "lucide-react";
+import { BookUser, CircleX, Ellipsis, Loader2, Mail, User, UserPlus } from "lucide-react";
 
 export default function GroupPage({ params }) {
   const router = useRouter();
@@ -179,9 +179,9 @@ export default function GroupPage({ params }) {
               {isSendingReminders ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
               ) : (
-                <Mail className="h-4 w-4 mr-2" />
+                <Mail className="h-4 w-4 md:mr-2" />
               )}
-              Send Fee Reminders
+              <p className="hidden md:block">Send Fee Reminders</p>
             </Button>
           </div>
         </div>
@@ -221,8 +221,8 @@ function AddMemberDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button variant='outline' onClick={() => onOpenChange(true)}>
-        <User className="h-4 w-4 mr-2" />
-          Add Member
+        <UserPlus className="h-4 w-4 md:mr-2" />
+         <p className="hidden md:block">Add Member</p>
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -296,11 +296,12 @@ function StudentsTable({ students, onRemoveMember }) {
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead>Phone Number</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Fee Status</TableHead>
-          <TableHead>Fee Amount</TableHead>
-          <TableHead></TableHead>
+          <TableHead className='hidden md:table-cell'>Phone Number</TableHead>
+          <TableHead className='md:hidden'>Phone</TableHead>
+          <TableHead className='hidden md:table-cell'>Email</TableHead>
+          <TableHead className='hidden md:table-cell'>Fee Status</TableHead>
+          <TableHead className='hidden md:table-cell'>Fee Amount</TableHead>
+          <TableHead ></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -308,10 +309,10 @@ function StudentsTable({ students, onRemoveMember }) {
           <TableRow key={student.membership._id}>
             <TableCell>{student.name}</TableCell>
             <TableCell>{student.phoneNumber || "N/A"}</TableCell>
-            <TableCell>{student.email || "N/A"}</TableCell>
-            <TableCell>{student.membership.feeStatus}</TableCell>
-            <TableCell>₹{student.membership.feeAmount}</TableCell>
-            <TableCell>
+            <TableCell className='hidden md:table-cell'>{student.email || "N/A"}</TableCell>
+            <TableCell className='hidden md:table-cell'>{student.membership.feeStatus}</TableCell>
+            <TableCell className='hidden md:table-cell'>₹{student.membership.feeAmount}</TableCell>
+            <TableCell >
               <Button
                 variant="ghost"
                 size="icon"

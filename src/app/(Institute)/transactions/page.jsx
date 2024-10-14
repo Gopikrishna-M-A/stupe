@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Loader2 } from 'lucide-react'
 
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState([])
@@ -50,7 +51,14 @@ const TransactionsPage = () => {
     return matchesSearch && matchesStatus
   })
 
-  if (loading) return <div>Loading...</div>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
   if (error) return <div>Error: {error}</div>
 
   return (
@@ -87,12 +95,12 @@ const TransactionsPage = () => {
             <table className='w-full'>
               <thead>
                 <tr className='border-b'>
-                  <th className='text-left p-2'>Student Name</th>
-                  <th className='text-left p-2'>Amount</th>
-                  <th className='text-left p-2'>Status</th>
-                  <th className='text-left p-2'>Date</th>
-                  <th className='text-left p-2'>Group</th>
-                  <th className='text-left p-2'>Payment Method</th>
+                  <th className='text-left p-2 '>Student Name</th>
+                  <th className='text-left p-2 '>Amount</th>
+                  <th className='text-left p-2 '>Status</th>
+                  <th className='text-left p-2 hidden md:table-cell'>Date</th>
+                  <th className='text-left p-2 hidden md:table-cell'>Group</th>
+                  <th className='text-left p-2 hidden md:table-cell'>Payment Method</th>
                 </tr>
               </thead>
               <tbody>
@@ -112,9 +120,9 @@ const TransactionsPage = () => {
                         {transaction?.status}
                       </span>
                     </td>
-                    <td className='p-2'>{new Date(transaction?.transactionDate)?.toLocaleDateString()}</td>
-                    <td className='p-2'>{transaction?.groupId?.groupName}</td>
-                    <td className='p-2'>{transaction?.paymentMethod}</td>
+                    <td className='p-2 hidden md:table-cell'>{new Date(transaction?.transactionDate)?.toLocaleDateString()}</td>
+                    <td className='p-2 hidden md:table-cell'>{transaction?.groupId?.groupName}</td>
+                    <td className='p-2 hidden md:table-cell'>{transaction?.paymentMethod}</td>
                   </tr>
                 ))}
               </tbody>
