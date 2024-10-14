@@ -112,21 +112,21 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {transactions.slice(0, 5).map((transaction) => (
-              <tr key={transaction._id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction.memberId.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction.amount.toFixed(2)}</td>
+            {transactions?.slice(0, 5).map((transaction) => (
+              <tr key={transaction?._id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{transaction?.memberId?.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₹{transaction?.amount?.toFixed(2)}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                    transaction.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    transaction?.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                   }`}>
-                    {transaction.status}
+                    {transaction?.status}
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(transaction.transactionDate).toLocaleDateString()}
+                  {new Date(transaction?.transactionDate).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction.groupId.groupName}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{transaction?.groupId?.groupName}</td>
               </tr>
             ))}
           </tbody>
