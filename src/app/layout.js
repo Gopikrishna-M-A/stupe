@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongodb";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import Head from 'next/head';
 
 export const metadata = {
   title: "stupe",
@@ -10,16 +11,14 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   await dbConnect();
   return (
-
-      <html lang="en">
-        <head>
+    <html lang="en">
+      <Head>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-        </head>
-        <body>          
-          {children}
-          <Toaster />
-        </body>
-      </html>
-
+      </Head>
+      <body>          
+        {children}
+        <Toaster />
+      </body>
+    </html>
   );
 }
