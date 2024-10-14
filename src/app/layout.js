@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongodb";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import Head from 'next/head';
+import Script from 'next/script';
 
 export const metadata = {
   title: "stupe",
@@ -12,10 +12,12 @@ export default async function RootLayout({ children }) {
   await dbConnect();
   return (
     <html lang="en">
-      <Head>
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-      </Head>
-      <body>          
+      <head />
+      <body>
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="lazyOnload"
+        />
         {children}
         <Toaster />
       </body>
