@@ -8,9 +8,9 @@ module.exports = {
   ],
   theme: {
   	extend: {
-		fontFamily: {
-			main: ['Satoshi', 'sans-serif'], 
-		  },
+  		fontFamily: {
+  			main: ['Satoshi', 'sans-serif']
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

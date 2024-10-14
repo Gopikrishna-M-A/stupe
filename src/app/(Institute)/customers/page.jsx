@@ -1,29 +1,68 @@
-import React from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
-const customers = [
-  { id: 1, name: 'John Doe', email: 'john@example.com', totalPaid: 1500, courses: ['Introduction to React', 'Advanced JavaScript'], group: 'Group 1' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com', totalPaid: 2250, courses: ['UI/UX Design Basics', 'Advanced JavaScript'], group: 'Group 1' },
-  { id: 3, name: 'Bob Johnson', email: 'bob@example.com', totalPaid: 1800, courses: ['Python for Beginners', 'Data Science Fundamentals'], group: 'Group 2' },
-  { id: 4, name: 'Alice Brown', email: 'alice@example.com', totalPaid: 900, courses: ['Introduction to React'], group: 'Group 2' },
-  { id: 5, name: 'Charlie Davis', email: 'charlie@example.com', totalPaid: 3200, courses: ['Data Science Fundamentals', 'Advanced JavaScript', 'UI/UX Design Basics'], group: 'Group 3' },
-];
+import axios from 'axios';
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from 'lucide-react';
 
 const CustomersPage = () => {
+  const [members, setMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchMembers();
+  }, []);
+
+  const fetchMembers = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get('/api/members');
+      setMembers(response.data);
+    } catch (error) {
+      console.error('Error fetching members:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch members. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const filteredMembers = members.filter(member => 
+    member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    member.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 w-full">
-      <h1 className="text-3xl font-bold mb-6">Customers</h1>
+      <h1 className="text-3xl font-bold mb-6">Members</h1>
       
       <div className="mb-6 flex gap-4">
-        <Input placeholder="Search customers..." className="max-w-sm" />
-        <Button>Search</Button>
+        <Input 
+          placeholder="Search members..." 
+          className="max-w-sm" 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Customer List</CardTitle>
+          <CardTitle>Member List</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -32,19 +71,23 @@ const CustomersPage = () => {
                 <tr className="border-b">
                   <th className="text-left p-2">Name</th>
                   <th className="text-left p-2">Email</th>
-                  <th className="text-left p-2">Total Paid</th>
-                  <th className="text-left p-2">Courses</th>
+                  <th className="text-left p-2">Phone Number</th>
+                  <th className="text-left p-2">Fee Status</th>
                   <th className="text-left p-2">Group</th>
                 </tr>
               </thead>
               <tbody>
-                {customers.map((customer) => (
-                  <tr key={customer.id} className="border-b">
-                    <td className="p-2">{customer.name}</td>
-                    <td className="p-2">{customer.email}</td>
-                    <td className="p-2">₹{customer.totalPaid.toFixed(2)}</td>
-                    <td className="p-2">{customer.courses.join(', ')}</td>
-                    <td className="p-2">{customer.group}</td>
+                {filteredMembers.map((member) => (
+                  <tr key={member._id} className="border-b">
+                    <td className="p-2">{member.name}</td>
+                    <td className="p-2">{member.email}</td>
+                    <td className="p-2">{member.phoneNumber}</td>
+                    <td className="p-2">{member.feeStatus}</td>
+                    <td className="p-2">
+                      {member.groupId ? (
+                          <div>{member.groupId.groupName}</div>
+                      ) : 'No Group'}
+                    </td>
                   </tr>
                 ))}
               </tbody>

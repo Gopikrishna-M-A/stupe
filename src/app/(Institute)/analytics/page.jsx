@@ -23,7 +23,7 @@ const AnalyticsPage = () => {
             <CardTitle>Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">₹24,200</p>
+            <p className="text-2xl font-bold">$24,200</p>
           </CardContent>
         </Card>
         <Card>
@@ -39,7 +39,7 @@ const AnalyticsPage = () => {
             <CardTitle>Average Transaction Value</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">₹16.74</p>
+            <p className="text-2xl font-bold">$16.74</p>
           </CardContent>
         </Card>
       </div>
@@ -57,7 +57,7 @@ const AnalyticsPage = () => {
               <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
               <Tooltip />
               <Legend />
-              <Bar yAxisId="left" dataKey="revenue" fill="#8884d8" name="Revenue (₹)" />
+              <Bar yAxisId="left" dataKey="revenue" fill="#8884d8" name="Revenue ($)" />
               <Bar yAxisId="right" dataKey="transactions" fill="#82ca9d" name="Transactions" />
             </BarChart>
           </ResponsiveContainer>
@@ -72,23 +72,23 @@ const AnalyticsPage = () => {
           <ul className="space-y-2">
             <li className="flex justify-between items-center">
               <span>Introduction to React</span>
-              <span className="font-bold">₹5,200</span>
+              <span className="font-bold">$5,200</span>
             </li>
             <li className="flex justify-between items-center">
               <span>Advanced JavaScript</span>
-              <span className="font-bold">₹4,800</span>
+              <span className="font-bold">$4,800</span>
             </li>
             <li className="flex justify-between items-center">
               <span>Data Science Fundamentals</span>
-              <span className="font-bold">₹4,500</span>
+              <span className="font-bold">$4,500</span>
             </li>
             <li className="flex justify-between items-center">
               <span>UI/UX Design Basics</span>
-              <span className="font-bold">₹3,900</span>
+              <span className="font-bold">$3,900</span>
             </li>
             <li className="flex justify-between items-center">
               <span>Python for Beginners</span>
-              <span className="font-bold">₹3,600</span>
+              <span className="font-bold">$3,600</span>
             </li>
           </ul>
         </CardContent>

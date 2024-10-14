@@ -100,10 +100,10 @@ const TransactionsPage = () => {
                 {transactions.map((transaction) => (
                   <tr key={transaction.id} className='border-b'>
                     <td className='p-2'>{transaction.studentName}</td>
-                    <td className='p-2'>₹{transaction.amount.toFixed(2)}</td>
+                    <td className='p-2'>${transaction.amount.toFixed(2)}</td>
                     <td className='p-2'>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs ₹{
+                        className={`px-2 py-1 rounded-full text-xs ${
                           transaction.status === "Completed"
                             ? "bg-green-100 text-green-800"
                             : "bg-yellow-100 text-yellow-800"

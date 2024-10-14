@@ -1,29 +1,23 @@
-import localFont from "next/font/local";
+import dbConnect from "@/lib/mongodb";
 import "./globals.css";
-
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
   title: "stupe",
   description: "simplified fee collection",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  await dbConnect();
   return (
 
       <html lang="en">
+        <head>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        </head>
         <body>          
           {children}
+          <Toaster />
         </body>
       </html>
 
