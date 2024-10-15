@@ -4,6 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import Group from "@/models/Group";
 import Memberships from "@/models/Memberships";
 import Member from "@/models/Member";
+import PendingPayments from "@/models/PendingPayments";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,21 +13,32 @@ export async function POST(request) {
   const { groupId } = await request.json();
 
   try {
+    const unpaidMemberships = await Memberships.find({ groupId, feeStatus: { $ne: "Paid" } }).populate('memberId');
     const group = await Group.findById(groupId);
-    if (!group) {
-      return NextResponse.json({ error: "Group not found" }, { status: 404 });
+    const remindersSent = [];
+
+    for (const membership of unpaidMemberships) {
+      // Check for existing pending payment
+      let pendingPayment = await PendingPayments.findOne({
+        membershipId: membership._id,
+        amount: membership.feeAmount
+      });
+
+      if (!pendingPayment) {
+        // If no existing pending payment, create a new one
+        pendingPayment = new PendingPayments({
+          membershipId: membership._id,
+          amount: membership.feeAmount,
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+        });
+        await pendingPayment.save();
+      }
+
+      const paymentLink = `${process.env.NEXT_PUBLIC_BASE_URL}/pay/${pendingPayment._id}`;
+
+      await sendReminderEmail(membership.memberId, group, paymentLink, membership.feeAmount);
+      remindersSent.push({ memberId: membership.memberId._id, paymentLink });
     }
-
-    const memberships = await Memberships.find({ groupId, feeStatus: { $ne: "Paid" } }).populate("memberId");
-
-    const remindersSent = await Promise.all(
-      memberships.map(async (membership) => {
-        const member = membership.memberId;
-        const paymentLink = `${process.env.NEXT_PUBLIC_BASE_URL}/pay/${member._id}`;
-        await sendReminderEmail(member, group, paymentLink);
-        return { memberId: member._id, email: member.email };
-      })
-    );
 
     return NextResponse.json({ message: "Reminders sent successfully", remindersSent });
   } catch (error) {
@@ -35,24 +47,7 @@ export async function POST(request) {
   }
 }
 
-// async function sendReminderEmail(member, group, paymentLink) {
-//   await resend.emails.send({
-//     from: "pay@stupe.co",
-//     to: member.email,
-//     subject: `Fee Reminder for ${group.groupName}`,
-//     html: `
-//       <h1>Fee Reminder</h1>
-//       <p>Dear ${member.name},</p>
-//       <p>This is a reminder to pay your fees for ${group.groupName}.</p>
-//       <p>Please click the link below to make your payment:</p>
-//       <a href="${paymentLink}">Pay Now</a>
-//       <p>If you have any questions, please contact us.</p>
-//       <p>Thank you!</p>
-//     `,
-//   });
-// }
-
-async function sendReminderEmail(member, group, paymentLink) {
+async function sendReminderEmail(member, group, paymentLink, feeAmount) {
   await resend.emails.send({
     from: "pay@stupe.co",
     to: member.email,
@@ -79,7 +74,7 @@ async function sendReminderEmail(member, group, paymentLink) {
                   <td>
                       <h1 style="color: #005180; margin-bottom: 20px;">Fee Reminder</h1>
                       <p style="margin-bottom: 15px;">Dear ${member.name},</p>
-                      <p style="margin-bottom: 15px;">This is a friendly reminder to pay your fees for ${group.groupName}.</p>
+                      <p style="margin-bottom: 15px;">This is a friendly reminder to pay your fees of $${feeAmount} for ${group.groupName}.</p>
                       <p style="margin-bottom: 20px;">Please click the button below to make your payment:</p>
                       <table cellpadding="0" cellspacing="0">
                           <tr>

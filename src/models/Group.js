@@ -12,6 +12,7 @@ const GroupSchema = new mongoose.Schema(
       ref: Institute,
       required: true,
     },
+    feeCollectionInterval: { type: Number, default: 30 },
   },
   { timestamps: true }
 );

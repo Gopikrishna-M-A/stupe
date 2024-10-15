@@ -20,6 +20,7 @@ const Dashboard = () => {
   const { instituteData } = useUserContext()
   const [groups, setGroups] = useState([])
   const [transactions, setTransactions] = useState([])
+  const [pending,setPending] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -30,12 +31,16 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const [groupsResponse, transactionsResponse] = await Promise.all([
+      const [groupsResponse, transactionsResponse, PendingResponse] = await Promise.all([
         axios.get(`/api/groups?instituteId=${instituteData._id}`),
         axios.get(`/api/transactions?instituteId=${instituteData._id}`),
+        axios.get(`/api/pending-payment?instituteId=${instituteData._id}`),
       ])
       setGroups(groupsResponse.data)
       setTransactions(transactionsResponse.data)
+      setPending(PendingResponse.data)
+      console.log("PendingResponse.data",PendingResponse.data);
+      
     } catch (error) {
       console.error("Error fetching data:", error)
     } finally {
@@ -51,9 +56,7 @@ const Dashboard = () => {
     (sum, group) => sum + group.memberCount,
     0
   )
-  const pendingPayments = transactions.filter(
-    (t) => t.status === "Pending"
-  ).length
+  const pendingPayments = pending?.length
 
   const chartData = groups.map((group) => ({
     name: group.groupName,
@@ -116,16 +119,16 @@ const Dashboard = () => {
                 type='monotone'
                 dataKey='students'
                 stackId='1'
-                stroke='#8884d8'
-                fill='#8884d8'
+                stroke='#005180'
+                fill='#005180'
                 name='Students'
               />
               <Area
                 type='monotone'
                 dataKey='fees'
                 stackId='1'
-                stroke='#82ca9d'
-                fill='#82ca9d'
+                stroke='#022539'
+                fill='#022539'
                 name='Collected Fees'
               />
             </AreaChart>

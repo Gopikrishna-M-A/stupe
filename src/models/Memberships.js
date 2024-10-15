@@ -20,6 +20,7 @@ const MembershipsSchema = new mongoose.Schema(
       enum: ["Paid", "Partial", "Pending"],
       default: "Pending",
     },
+    lastPaidDate: { type: Date }
   },
   { timestamps: true }
 );

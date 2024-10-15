@@ -14,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { useRouter } from "next/navigation"
 
 export default function PaymentPage({ params }) {
-  const { memberId } = params
+  const { pendingPaymentId } = params
   const router = useRouter()
   const [memberData, setMemberData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -22,11 +22,13 @@ export default function PaymentPage({ params }) {
 
   useEffect(() => {
     fetchMemberData()
-  }, [memberId])
+  }, [pendingPaymentId])
 
   const fetchMemberData = async () => {
     try {
-      const response = await axios.get(`/api/members/${memberId}`)
+      const response = await axios.get(`/api/pending-payment/${pendingPaymentId}`)
+      console.log('response : pay',response);
+      
       setMemberData(response.data)
       setPaymentStatus(
         response.data.membership.feeStatus === "Paid" ? "success" : "pending"
@@ -40,12 +42,7 @@ export default function PaymentPage({ params }) {
 
   const handlePayNow = async () => {
     try {
-      const response = await axios.post('/api/create-razorpay-order', {
-        memberId: memberData.member._id,
-        groupId: memberData.membership.groupId,
-        membershipId: memberData.membership._id,
-        amount: memberData.membership.feeAmount,
-      })
+      const response = await axios.post('/api/create-razorpay-order', { pendingPaymentId })
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -77,9 +74,6 @@ export default function PaymentPage({ params }) {
         razorpay_payment_id: response.razorpay_payment_id,
         razorpay_order_id: response.razorpay_order_id,
         razorpay_signature: response.razorpay_signature,
-        memberId: memberData.member._id,
-        groupId: memberData.membership.groupId,
-        membershipId: memberData.membership._id,
       })
       setPaymentStatus("success")
       router.push(`/payment-success/${memberId}`)
@@ -131,11 +125,11 @@ export default function PaymentPage({ params }) {
                 </p>
                 <p>
                   You are affiliated with the{" "}
-                  <strong>{memberData.group.groupName}</strong> group.
+                  <strong>{memberData.groupName}</strong> group.
                 </p>
                 <p>
                   Your total membership fee is{" "}
-                  <strong>₹{memberData.membership.feeAmount}</strong>.
+                  <strong>₹{memberData.amount}</strong>.
                 </p>
               </div>
               <Button onClick={handlePayNow} className='w-full mt-6' size='lg'>
