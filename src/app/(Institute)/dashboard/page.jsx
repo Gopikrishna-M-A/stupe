@@ -83,7 +83,7 @@ const Dashboard = () => {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Active Students</CardTitle>
+            <CardTitle>Active Members</CardTitle>
           </CardHeader>
           <CardContent>
             <p className='text-2xl font-bold'>{totalStudents}</p>
