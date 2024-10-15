@@ -74,7 +74,7 @@ async function sendReminderEmail(member, group, paymentLink, feeAmount) {
                   <td>
                       <h1 style="color: #005180; margin-bottom: 20px;">Fee Reminder</h1>
                       <p style="margin-bottom: 15px;">Dear ${member.name},</p>
-                      <p style="margin-bottom: 15px;">This is a friendly reminder to pay your fees of $${feeAmount} for ${group.groupName}.</p>
+                      <p style="margin-bottom: 15px;">This is a friendly reminder to pay your fees of ₹${feeAmount} for ${group.groupName}.</p>
                       <p style="margin-bottom: 20px;">Please click the button below to make your payment:</p>
                       <table cellpadding="0" cellspacing="0">
                           <tr>
