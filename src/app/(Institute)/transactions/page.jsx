@@ -95,7 +95,7 @@ const TransactionsPage = () => {
             <table className='w-full'>
               <thead>
                 <tr className='border-b'>
-                  <th className='text-left p-2 '>Student Name</th>
+                  <th className='text-left p-2 '>Name</th>
                   <th className='text-left p-2 '>Amount</th>
                   <th className='text-left p-2 '>Status</th>
                   <th className='text-left p-2 hidden md:table-cell'>Date</th>
