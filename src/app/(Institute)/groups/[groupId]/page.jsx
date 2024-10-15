@@ -149,7 +149,7 @@ export default function GroupPage({ params }) {
   }
 
   return (
-    <div className="w-full mx-auto p-6">
+    <div className="w-full mx-auto p-6 h-full overflow-y-scroll">
       <h1 className="text-3xl font-bold mb-2">{groupData.groupName}</h1>
       <p className="text-gray-600 mb-6">{groupData.description}</p>
 

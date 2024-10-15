@@ -14,7 +14,7 @@ const monthlyData = [
 
 const AnalyticsPage = () => {
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full h-full overflow-y-scroll">
       <h1 className="text-3xl font-bold mb-6">Analytics</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -66,7 +66,7 @@ const AnalyticsPage = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top Performing Courses</CardTitle>
+          <CardTitle>Top Performing Groups</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">

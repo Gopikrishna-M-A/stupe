@@ -4,6 +4,7 @@ import dbConnect from "@/lib/mongodb";
 import Transaction from "@/models/Transaction";
 import Memberships from "@/models/Memberships";
 import Group from "@/models/Group";
+import Razorpay from "razorpay";
 
 export async function POST(request) {
   await dbConnect();
@@ -25,13 +26,25 @@ export async function POST(request) {
   }
 
   try {
+    // Initialize Razorpay instance
+    const razorpay = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID,
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
+    });
+
+    // Fetch payment details from Razorpay
+    const paymentDetails = await razorpay.payments.fetch(razorpay_payment_id);
+
+    // Extract the actual payment method
+    const paymentMethod = paymentDetails.method;
+
     // Update transaction
     const transaction = await Transaction.findOneAndUpdate(
       { paymentId: razorpay_order_id },
       {
         status: "Completed",
         paymentId: razorpay_payment_id,
-        paymentMethod: "Razorpay",
+        paymentMethod: paymentMethod,
       },
       { new: true }
     );
@@ -44,7 +57,7 @@ export async function POST(request) {
       $inc: { collectedFees: transaction.amount },
     });
 
-    return NextResponse.json({ message: "Payment verified successfully" });
+    return NextResponse.json({ message: "Payment verified successfully", paymentMethod: paymentMethod });
   } catch (error) {
     console.error("Error verifying payment:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

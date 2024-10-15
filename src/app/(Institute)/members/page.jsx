@@ -49,7 +49,7 @@ const CustomersPage = () => {
   }
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6 w-full h-full overflow-y-scroll">
       <h1 className="text-3xl font-bold mb-6">Members</h1>
       
       <div className="mb-6 flex gap-4">
