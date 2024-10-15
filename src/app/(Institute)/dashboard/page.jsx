@@ -36,11 +36,9 @@ const Dashboard = () => {
         axios.get(`/api/transactions?instituteId=${instituteData._id}`),
         axios.get(`/api/pending-payment?instituteId=${instituteData._id}`),
       ])
-      setGroups(groupsResponse.data)
-      setTransactions(transactionsResponse.data)
-      setPending(PendingResponse.data)
-      console.log("PendingResponse.data",PendingResponse.data);
-      
+      setGroups(groupsResponse?.data)
+      setTransactions(transactionsResponse?.data)
+      setPending(PendingResponse?.data)
     } catch (error) {
       console.error("Error fetching data:", error)
     } finally {
@@ -48,20 +46,20 @@ const Dashboard = () => {
     }
   }
 
-  const totalCollected = transactions.reduce(
-    (sum, transaction) => sum + transaction.amount,
+  const totalCollected = transactions?.reduce(
+    (sum, transaction) => sum + transaction?.amount,
     0
   )
-  const totalStudents = groups.reduce(
-    (sum, group) => sum + group.memberCount,
+  const totalStudents = groups?.reduce(
+    (sum, group) => sum + group?.memberCount,
     0
   )
   const pendingPayments = pending?.length
 
-  const chartData = groups.map((group) => ({
-    name: group.groupName,
-    students: group.memberCount,
-    fees: group.collectedFees,
+  const chartData = groups?.map((group) => ({
+    name: group?.groupName,
+    students: group?.memberCount,
+    fees: group?.collectedFees,
   }))
 
   if (loading) {

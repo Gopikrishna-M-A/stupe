@@ -28,8 +28,8 @@ const TransactionsPage = () => {
   const fetchTransactions = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`/api/transactions?instituteId=${instituteData._id}`)
-      setTransactions(response.data)
+      const response = await axios.get(`/api/transactions?instituteId=${instituteData?._id}`)
+      setTransactions(response?.data)
       setLoading(false)
     } catch (err) {
       setError('Failed to fetch transactions')
@@ -46,7 +46,7 @@ const TransactionsPage = () => {
   }
 
   const filteredTransactions = transactions?.filter((transaction) => {
-    const matchesSearch = transaction?.memberId?.name?.toLowerCase()?.includes(searchTerm.toLowerCase())
+    const matchesSearch = transaction?.memberId?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase())
     const matchesStatus = statusFilter === 'all' || transaction?.status?.toLowerCase() === statusFilter?.toLowerCase()
     return matchesSearch && matchesStatus
   })

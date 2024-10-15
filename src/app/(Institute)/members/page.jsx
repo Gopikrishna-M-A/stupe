@@ -21,8 +21,8 @@ const CustomersPage = () => {
   const fetchMembers = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`/api/members?instituteId=${instituteData._id}`);
-      setMembers(response.data);
+      const response = await axios.get(`/api/members?instituteId=${instituteData?._id}`);
+      setMembers(response?.data);
     } catch (error) {
       console.error('Error fetching members:', error);
       toast({
@@ -35,9 +35,9 @@ const CustomersPage = () => {
     }
   };
 
-  const filteredMembers = members.filter(member => 
-    member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    member.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMembers = members?.filter(member => 
+    member?.name?.toLowerCase()?.includes(searchTerm?.toLowerCase()) ||
+    member?.email?.toLowerCase()?.includes(searchTerm?.toLowerCase())
   );
 
   if (isLoading) {
@@ -77,14 +77,14 @@ const CustomersPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredMembers.map((member) => (
-                  <tr key={member._id} className="border-b">
-                    <td className="p-2">{member.name}</td>
-                    <td className="p-2 hidden md:table-cell">{member.email}</td>
-                    <td className="p-2">{member.phoneNumber}</td>
+                {filteredMembers?.map((member) => (
+                  <tr key={member?._id} className="border-b">
+                    <td className="p-2">{member?.name}</td>
+                    <td className="p-2 hidden md:table-cell">{member?.email}</td>
+                    <td className="p-2">{member?.phoneNumber}</td>
                     <td className="p-2 hidden md:table-cell">
-                      {member.groupId ? (
-                          <div>{member.groupId.groupName}</div>
+                      {member?.groupId ? (
+                          <div>{member?.groupId?.groupName}</div>
                       ) : 'No Group'}
                     </td>
                   </tr>

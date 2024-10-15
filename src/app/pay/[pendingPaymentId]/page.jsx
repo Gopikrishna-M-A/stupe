@@ -31,7 +31,7 @@ export default function PaymentPage({ params }) {
       
       setMemberData(response.data)
       setPaymentStatus(
-        response.data.membership.feeStatus === "Paid" ? "success" : "pending"
+        response?.data?.membership?.feeStatus === "Paid" ? "success" : "pending"
       )
     } catch (error) {
       console.error("Error fetching member data:", error)
@@ -46,18 +46,18 @@ export default function PaymentPage({ params }) {
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: response.data.amount,
+        amount: response?.data?.amount,
         currency: "INR",
         name: "Your Company Name",
-        description: `Fee payment for ${memberData.member.name}`,
-        order_id: response.data.id,
+        description: `Fee payment for ${memberData?.member?.name}`,
+        order_id: response?.data?.id,
         handler: function (response) {
           handlePaymentSuccess(response)
         },
         prefill: {
-          name: memberData.member.name,
-          email: memberData.member.email,
-          contact: memberData.member.phoneNumber,
+          name: memberData?.member?.name,
+          email: memberData?.member?.email,
+          contact: memberData?.member?.phoneNumber,
         },
       }
 
@@ -71,12 +71,12 @@ export default function PaymentPage({ params }) {
   const handlePaymentSuccess = async (response) => {
     try {
       await axios.post("/api/verify-payment", {
-        razorpay_payment_id: response.razorpay_payment_id,
-        razorpay_order_id: response.razorpay_order_id,
-        razorpay_signature: response.razorpay_signature,
+        razorpay_payment_id: response?.razorpay_payment_id,
+        razorpay_order_id: response?.razorpay_order_id,
+        razorpay_signature: response?.razorpay_signature,
       })
       setPaymentStatus("success")
-      router.push(`/payment-success/${memberId}`)
+      router.push(`/payment-success/${memberData?.member?._id}`)
     } catch (error) {
       console.error("Error verifying payment:", error)
       setPaymentStatus("error")
@@ -92,12 +92,7 @@ export default function PaymentPage({ params }) {
   }
 
   if (!memberData) {
-    return (
-      <Alert variant='destructive' className='max-w-md mx-auto mt-8'>
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>Member not found. Please try again.</AlertDescription>
-      </Alert>
-    )
+    router.push(`/payment-success`)
   }
 
   return (
@@ -120,16 +115,16 @@ export default function PaymentPage({ params }) {
             <>
               <div className=''>
                 <p>
-                  Thank you, <strong>{memberData.member.name}</strong>, for
+                  Thank you, <strong>{memberData?.member?.name}</strong>, for
                   being a valued member.
                 </p>
                 <p>
                   You are affiliated with the{" "}
-                  <strong>{memberData.groupName}</strong> group.
+                  <strong>{memberData?.groupName}</strong> group.
                 </p>
                 <p>
                   Your total membership fee is{" "}
-                  <strong>₹{memberData.amount}</strong>.
+                  <strong>₹{memberData?.amount}</strong>.
                 </p>
               </div>
               <Button onClick={handlePayNow} className='w-full mt-6' size='lg'>

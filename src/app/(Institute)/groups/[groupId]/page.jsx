@@ -60,8 +60,8 @@ export default function GroupPage({ params }) {
         axios.get(`/api/members?groupId=${groupId}`),
       ])
 
-      setGroupData(groupResponse.data)
-      setMembers(membersResponse.data)
+      setGroupData(groupResponse?.data)
+      setMembers(membersResponse?.data)
     } catch (error) {
       console.error("Error fetching data:", error)
       toast({
@@ -80,7 +80,7 @@ export default function GroupPage({ params }) {
         ...newMember,
         groupId,
       })
-      setMembers([...members, response.data])
+      setMembers([...members, response?.data])
       setNewMember({ name: "", phoneNumber: "", email: "", feeAmount: "" })
       setIsDialogOpen(false)
       toast({
@@ -114,7 +114,7 @@ export default function GroupPage({ params }) {
     try {
       await axios.delete(`/api/members?id=${membershipId}`)
       setMembers(
-        members.filter((member) => member.membership._id !== membershipId)
+        members.filter((member) => member?.membership?._id !== membershipId)
       )
       toast({
         title: "Success",
@@ -136,7 +136,7 @@ export default function GroupPage({ params }) {
       const response = await axios.post("/api/send-fee-reminder", { groupId })
       toast({
         title: "Success",
-        description: `Reminders sent to ${response.data.remindersSent.length} members.`,
+        description: `Reminders sent to ${response?.data?.remindersSent?.length} members.`,
       })
     } catch (error) {
       console.error("Error sending reminders:", error)
@@ -171,14 +171,14 @@ export default function GroupPage({ params }) {
 
   return (
     <div className='w-full mx-auto p-6 h-full overflow-y-scroll'>
-      <h1 className='text-3xl font-bold mb-2'>{groupData.groupName}</h1>
-      <p className='text-gray-600 mb-6'>{groupData.description}</p>
+      <h1 className='text-3xl font-bold mb-2'>{groupData?.groupName}</h1>
+      <p className='text-gray-600 mb-6'>{groupData?.description}</p>
 
       <div className='grid grid-cols-2 md:grid-cols-3 gap-6 mb-8'>
-        <StatCard title='Total Students' value={members.length} />
+        <StatCard title='Total Students' value={members?.length} />
         <StatCard
           title='Collected Fees'
-          value={`₹${groupData.collectedFees.toFixed(2)}`}
+          value={`₹${groupData?.collectedFees?.toFixed(2)}`}
         />
       </div>
 
@@ -328,17 +328,17 @@ function StudentsTable({ students, onRemoveMember }) {
       </TableHeader>
       <TableBody>
         {students.map((student) => (
-          <TableRow key={student.membership._id}>
-            <TableCell>{student.name}</TableCell>
-            <TableCell>{student.phoneNumber || "N/A"}</TableCell>
+          <TableRow key={student?.membership?._id}>
+            <TableCell>{student?.name}</TableCell>
+            <TableCell>{student?.phoneNumber || "N/A"}</TableCell>
             <TableCell className='hidden md:table-cell'>
-              {student.email || "N/A"}
+              {student?.email || "N/A"}
             </TableCell>
             <TableCell className='hidden md:table-cell'>
-              {student.membership.feeStatus}
+              {student?.membership?.feeStatus}
             </TableCell>
             <TableCell className='hidden md:table-cell'>
-              ₹{student.membership.feeAmount}
+              ₹{student?.membership?.feeAmount}
             </TableCell>
             <TableCell>
               <Button
@@ -353,7 +353,7 @@ function StudentsTable({ students, onRemoveMember }) {
               <Button
                 variant='ghost'
                 size='icon'
-                onClick={() => onRemoveMember(student.membership._id)}>
+                onClick={() => onRemoveMember(student?.membership?._id)}>
                 <CircleX className='h-4 w-4 text-red-500' />
               </Button>
             </TableCell>

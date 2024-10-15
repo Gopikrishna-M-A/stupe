@@ -35,9 +35,9 @@ export default function GroupsListPage() {
     setIsLoading(true)
     try {
       const response = await axios.get("/api/groups", {
-        params: { instituteId: instituteData._id }
+        params: { instituteId: instituteData?._id }
       })
-      setGroups(response.data)
+      setGroups(response?.data)
     } catch (error) {
       console.error("Error fetching groups:", error)
       toast({
@@ -54,10 +54,10 @@ export default function GroupsListPage() {
     try {
       const groupData = {
         ...newGroup,
-        institute: instituteData._id,
+        institute: instituteData?._id,
       }
       const response = await axios.post("/api/groups", groupData)
-      setGroups([...groups, response.data])
+      setGroups([...groups, response?.data])
       setNewGroup({ groupName: "", description: "" })
       setIsDialogOpen(false)
       toast({
@@ -101,9 +101,9 @@ export default function GroupsListPage() {
                 </Label>
                 <Input
                   id='groupName'
-                  value={newGroup.groupName}
+                  value={newGroup?.groupName}
                   onChange={(e) =>
-                    setNewGroup({ ...newGroup, groupName: e.target.value })
+                    setNewGroup({ ...newGroup, groupName: e?.target?.value })
                   }
                   className='col-span-3'
                 />
@@ -114,9 +114,9 @@ export default function GroupsListPage() {
                 </Label>
                 <Input
                   id='description'
-                  value={newGroup.description}
+                  value={newGroup?.description}
                   onChange={(e) =>
-                    setNewGroup({ ...newGroup, description: e.target.value })
+                    setNewGroup({ ...newGroup, description: e?.target?.value })
                   }
                   className='col-span-3'
                 />
@@ -128,23 +128,23 @@ export default function GroupsListPage() {
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {groups.map((group) => (
+        {groups?.map((group) => (
           <Card
-            key={group._id}
+            key={group?._id}
             className='cursor-pointer hover:shadow-lg transition-shadow'
-            onClick={() => router.push(`/groups/${group._id}`)}>
+            onClick={() => router?.push(`/groups/${group?._id}`)}>
             <CardHeader>
-              <CardTitle>{group.groupName}</CardTitle>
+              <CardTitle>{group?.groupName}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className='text-gray-600'>{group.description}</p>
-              <p className='mt-2'>Members: {group.memberCount}</p>
+              <p className='text-gray-600'>{group?.description}</p>
+              <p className='mt-2'>Members: {group?.memberCount}</p>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {groups.length === 0 && (
+      {groups?.length === 0 && (
         <p className='text-center text-gray-500 mt-8'>
           No groups found. Create a new group to get started!
         </p>
